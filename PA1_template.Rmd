@@ -100,11 +100,11 @@ activity$dayType <- sapply(activity$date, function(x) {
 activityByDay <-  aggregate(steps ~ interval + dayType, activity, mean, na.rm = TRUE)
 # Plot using ggplot2
 dayPlot <-  ggplot(activityByDay, aes(x = interval , y = steps, color = dayType)) + 
-  geom_line() + ggtitle("Average Daily Steps by Day Type") + 
+  geom_line() + ggtitle("Average daily steps by day type") + 
   xlab("Interval") + 
-  ylab("Average Number of Steps") +
+  ylab("Average number of steps") +
   facet_wrap(~dayType, ncol = 1, nrow=2) +
-  scale_color_discrete(name = "Day Type") +
+  scale_color_discrete(name = "Day type") +
   theme_calc(base_family = "sans")
 print(dayPlot)
 ```
