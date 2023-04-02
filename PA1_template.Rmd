@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.width = 10, fig.height =
 
 ```
 ## Loading and preprocessing the data
-```{r}
+```{r load_process data}
 #load packages:
 library(ggplot2)
 library(ggthemes)
@@ -24,7 +24,7 @@ activity <- cbind(activity, day)
 summary(activity)
 ```
 ## What is mean total number of steps taken per day?
-```{r}
+```{r meanStepsPerDay}
 activityTotalSteps <- with(activity, aggregate(steps, by = list(date), sum, na.rm = TRUE))
 names(activityTotalSteps) <- c("Date", "Steps")
 totalStepsdf <- data.frame(activityTotalSteps)
@@ -41,7 +41,7 @@ mean(activityTotalSteps$Steps)
 median(activityTotalSteps$Steps)
 ```
 ## What is the average daily activity pattern?
-```{r}
+```{r AvgDailyActivity}
 # Calculating the average number of steps taken, 
 #averaged across all days by 5-min intervals.
 averageDailyActivity <- aggregate(activity$steps, by = list(activity$interval), 
@@ -61,7 +61,7 @@ print(da)
 averageDailyActivity[which.max(averageDailyActivity$Mean), ]$Interval
 ```
 ## Imputing missing values
-```{r}
+```{r ImputingNAs}
 # report the total number of rows with NAs.
 sum(is.na(activity$steps))
 imputedSteps <- averageDailyActivity$Mean[match(activity$interval, averageDailyActivity$Interval)]
@@ -88,7 +88,7 @@ mean(totalActivityImputed$dailySteps)
 median(totalActivityImputed$dailySteps)
 ```
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r}
+```{r WeekdayWeekend}
 activity$date <- as.Date(strptime(activity$date, format="%Y-%m-%d"))
 # Making a function which differentiates weekdays from weekends
 activity$dayType <- sapply(activity$date, function(x) {
